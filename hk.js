@@ -8,7 +8,7 @@ export async function main(ns) {
   const src = ns.args.length > 1 ? ns.args[1] : "home";
   let threads = ns.args.length > 2 ? ns.args[2] : Math.trunc(ns.getServerMaxRam(src) / 2.4);
 
-  ns.exec("hc.js", src, threads, dst);
+  if (threads > 0) ns.exec("hc.js", src, threads, dst);
 }
 
 export function autocomplete(data, args) {
