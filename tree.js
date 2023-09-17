@@ -14,7 +14,7 @@ export function main(ns) {
         .serverscan .hack {display:inline-block; font:12px monospace}
         .serverscan .red {color:red;}
         .serverscan .green {color:green;}
-        .serverscan .backdoor {color:#6f3; font:12px monospace}
+        .serverscan .backdoor {color:#a8e; font:12px monospace}
         .serverscan .backdoor > a {cursor:pointer; text-decoration:underline;}
         .serverscan .cct {color:#0ff;}
     </style>`,
