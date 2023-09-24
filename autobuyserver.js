@@ -1,7 +1,7 @@
 /** @param {NS} ns */
 export async function main(ns) {
-  let hc = ns.args.length > 0 ? ns.args[0] : "n00dles";
-  let ti = ns.args.length > 1 ? ns.args[1] : 1;
+  let ti = ns.args.length > 0 ? ns.args[0] : 1;
+  let hc = ns.args.length > 1 ? ns.args[1] : "n00dles";
   while (ti >= 1) {
     while (ns.getServerMoneyAvailable("home") < 57000000) await ns.asleep(1000 * 60)
     var n = ns.purchaseServer("zz-0", 1024);

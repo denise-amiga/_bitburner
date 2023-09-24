@@ -5,6 +5,7 @@ export async function main(ns) {
   ns.resizeTail(300, 250);
   ns.moveTail(440, 0);
   ns.print("Start: ", mytime());
+  ns.run("dep.js", 1);
 
   const programs = ["", "BruteSSH.exe", "FTPCrack.exe", "relaySMTP.exe", "HTTPWorm.exe", "SQLInject.exe"]
   let srvs = srvList(ns).filter((s) => !s.includes("zz-") && !s.includes("home"));
@@ -20,7 +21,7 @@ export async function main(ns) {
   })
 
   ns.print("\nWaiting for ", programs[1], "... ");
-  while (!ns.fileExists(programs[1])) await ns.asleep(60000);
+  while (!ns.fileExists(programs[1])) await ns.asleep(10000);
 
   lstsrv = srvsPort[1];
   ns.print("\nHacking 1 ports servers ... ", lstsrv);
@@ -33,7 +34,7 @@ export async function main(ns) {
   })
 
   ns.print("\nWaiting for ", programs[2], "... ");
-  while (!ns.fileExists(programs[2])) await ns.asleep(60000);
+  while (!ns.fileExists(programs[2])) await ns.asleep(10000);
 
   lstsrv = srvsPort[2];
   ns.print("\nHacking 2 ports servers ... ", lstsrv);
@@ -47,7 +48,7 @@ export async function main(ns) {
   })
 
   ns.print("\nWaiting for ", programs[3], "... ");
-  while (!ns.fileExists(programs[3])) await ns.asleep(60000);
+  while (!ns.fileExists(programs[3])) await ns.asleep(10000);
 
   lstsrv = srvsPort[3];
   ns.print("\nHacking 3 ports servers ... ", lstsrv);
@@ -62,7 +63,7 @@ export async function main(ns) {
   })
 
   ns.print("\nWaiting for ", programs[4], "... ");
-  while (!ns.fileExists(programs[4])) await ns.asleep(60000);
+  while (!ns.fileExists(programs[4])) await ns.asleep(10000);
 
   lstsrv = srvsPort[4];
   ns.print("\nHacking 4 ports servers ... ", lstsrv);
@@ -78,7 +79,7 @@ export async function main(ns) {
   })
 
   ns.print("\nWaiting for ", programs[5], "... ");
-  while (!ns.fileExists(programs[5])) await ns.asleep(60000);
+  while (!ns.fileExists(programs[5])) await ns.asleep(10000);
 
   lstsrv = srvsPort[5];
   ns.print("\nHacking 5 ports servers ... ", lstsrv);
@@ -97,7 +98,7 @@ export async function main(ns) {
 
 //async function nukesrv(ns, port, programs = programs) {
 //  ns.print("\nwaiting for ", programs[port]);
-//  while (!ns.fileExists(programs[port])) await ns.asleep(60000);
+//  while (!ns.fileExists(programs[port])) await ns.asleep(10000);
 
 //  let srvs = srvsPort[port];
 //  ns.print("\nHacking ", port, " ports servers ... ", srvs);

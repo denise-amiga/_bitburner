@@ -6,7 +6,7 @@ export async function main(ns) {
   let level = ns.args.length > 0 ? ns.args[0] : ns.getHackingLevel();
   let force = ns.args.length > 1 ? true : false;
   ns.disableLog("ALL");
-  let servers = serverList(ns).filter((f) => !f.includes("zz-") && f != "home" && f !="darkweb");
+  let servers = serverList(ns).filter((f) => !f.includes("zz-") && f != "home" && f != "darkweb");
   let hackable = []
   for (let s of servers) {
     if (ns.getServerRequiredHackingLevel(s) <= level && ns.hasRootAccess(s)) hackable.push([ns.getServerRequiredHackingLevel(s), s])
@@ -14,7 +14,7 @@ export async function main(ns) {
   hackable = hackable.sort((a, b) => a[0] - b[0])
   hackable.forEach(s => {
     ns.print(s[0].toString().padStart(4, " "), ns.hasRootAccess(s[1]) ? "#" : ">", " ", s[1]);
-    if (force) ns.run("hk.js", 1, s[1], "home", 5000);
+    if (force) ns.run("hk.js", 1, s[1], "home", 1);
   })
   ns.print(hackable.length, " servers")
 }

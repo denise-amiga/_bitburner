@@ -1,10 +1,12 @@
 /** @param {NS} ns */
 export async function main(ns) {
   let st = ns.getHostname();
-  let servers = serverList(ns).filter((f) => !f.includes("zz-") && f != "home" && f != "darkweb");
+  let playerLvl = ns.getHackingLevel()
+  let servers = serverList(ns).filter((f) => !f.includes("zz-") && f != "home");
   let hackable = []
+  let hs = ns.getPlayer().mults.hacking_speed - 1
   for (let s of servers) {
-    hackable.push([ns.getServerRequiredHackingLevel(s), s])
+    if (!ns.getServer(s).backdoorInstalled && ns.hasRootAccess(s) && playerLvl >= ns.getServerRequiredHackingLevel(s)) hackable.push([ns.getServerRequiredHackingLevel(s), s])
   }
   hackable = hackable.sort((a, b) => a[0] - b[0])
   for (let f of hackable) {
@@ -13,7 +15,7 @@ export async function main(ns) {
       //ns.tprint("home;connect ", results.join(';connect '), ";backdoor");
       execterm("home;connect " + results.join(';connect ') + ";backdoor");
       //ns.sleep(ns.getHackTime(f) + 50);
-      await ns.sleep(ns.getHackTime(f[1]))
+      await ns.sleep(ns.getHackTime(f[1]) * hs * .90)
     }
   }
 }
