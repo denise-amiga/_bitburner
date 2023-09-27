@@ -14,7 +14,7 @@ export async function main(ns) {
   hackable = hackable.sort((a, b) => a[0] - b[0])
   hackable.forEach(s => {
     ns.print(s[0].toString().padStart(4, " "), ns.hasRootAccess(s[1]) ? "#" : ">", " ", s[1]);
-    if (force) ns.run("hk.js", 1, s[1], "home", 1);
+    if (force) ns.run("hk.js", 1, s[1], "home", 600);
   })
   ns.print(hackable.length, " servers")
 }

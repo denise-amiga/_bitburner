@@ -3,7 +3,7 @@ export async function main(ns) {
   var target = ns.args[0];
   // Defines how much money a server should have before we hack it
   // In this case, it is set to 75% of the server's max money
-  var moneyThresh = ns.getServerMaxMoney(ns.args[0]) * 0.75;
+  var moneyThresh = ns.getServerMaxMoney(ns.args[0]) * 0.5;
 
   // Defines the maximum security level the target server can
   // have. If the target's security level is higher than this,

@@ -4,9 +4,10 @@ export async function main(ns) {
   // args[1] = src/?home
   // args[2] = threads/?max (426->servers)
 
-  const dst = ns.args[0];
-  const src = ns.args.length > 1 ? ns.args[1] : "home";
-  let threads = ns.args.length > 2 ? ns.args[2] : Math.trunc(ns.getServerMaxRam(src) / 2.4);
+  //let reserved = ns.getHostname() == "home" ? 5 : 0
+  let dst = ns.args[0];
+  let src = ns.args.length > 1 ? ns.args[1] : "home";
+  let threads = ns.args.length > 2 ? ns.args[2] : Math.trunc((ns.getServerMaxRam(src) - ns.getServerUsedRam(src)) / 2.4);
 
   if (threads > 0) ns.exec("hc.js", src, threads, dst);
 }

@@ -15,7 +15,7 @@ export async function main(ns) {
       //ns.tprint("home;connect ", results.join(';connect '), ";backdoor");
       execterm("home;connect " + results.join(';connect ') + ";backdoor");
       //ns.sleep(ns.getHackTime(f) + 50);
-      await ns.sleep(ns.getHackTime(f[1]) * hs * .90)
+      await ns.sleep(ns.getHackTime(f[1]) * hs * .47)
     }
   }
 }

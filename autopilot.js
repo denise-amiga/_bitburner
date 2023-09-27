@@ -7,105 +7,34 @@ export async function main(ns) {
   ns.print("Start: ", mytime());
   ns.run("dep.js", 1);
 
-  const programs = ["", "BruteSSH.exe", "FTPCrack.exe", "relaySMTP.exe", "HTTPWorm.exe", "SQLInject.exe"]
-  let srvs = srvList(ns).filter((s) => !s.includes("zz-") && !s.includes("home"));
+  let srvs = srvList(ns).filter((s) => !s.includes("zz-") && s != "home");
   let srvsPort = getsrvsPort(ns, srvs);
 
-  let lstsrv = srvsPort[0];
-  ns.print("\nHacking 0 ports servers ... ", lstsrv);
+  root(ns, 0, srvsPort)
+  root(ns, 1, srvsPort)
+  root(ns, 2, srvsPort)
+  root(ns, 3, srvsPort)
+  root(ns, 4, srvsPort)
+  root(ns, 5, srvsPort)
+
+}
+
+async function root(ns, lvl, sP) {
+  const programs = ["", "BruteSSH.exe", "FTPCrack.exe", "relaySMTP.exe", "HTTPWorm.exe", "SQLInject.exe"]
+  let lstsrv = sP[lvl];
+
+  if (lvl > 0) {
+    ns.print("\nWaiting for ", programs[lvl], "... ");
+    while (!ns.fileExists(programs[lvl])) await ns.asleep(5000);
+  }
+
+  ns.print("\nHacking " + lvl + " ports servers ... ", lstsrv);
   lstsrv.forEach(s => {
     ns.run("nk.js", 1, s);
     ns.run("hk.js", 1, "n00dles", s);
-    //  ns.nuke(s);
-    ns.print(mytime(), "  ", s)
-  })
-
-  ns.print("\nWaiting for ", programs[1], "... ");
-  while (!ns.fileExists(programs[1])) await ns.asleep(10000);
-
-  lstsrv = srvsPort[1];
-  ns.print("\nHacking 1 ports servers ... ", lstsrv);
-  lstsrv.forEach(s => {
-    ns.run("nk.js", 1, s);
-    ns.run("hk.js", 1, "n00dles", s);
-    //  ns.brutessh(s);
-    //  ns.nuke(s);
-    ns.print(mytime(), "  ", s)
-  })
-
-  ns.print("\nWaiting for ", programs[2], "... ");
-  while (!ns.fileExists(programs[2])) await ns.asleep(10000);
-
-  lstsrv = srvsPort[2];
-  ns.print("\nHacking 2 ports servers ... ", lstsrv);
-  lstsrv.forEach(s => {
-    ns.run("nk.js", 1, s);
-    ns.run("hk.js", 1, "n00dles", s);
-    //  ns.brutessh(s);
-    //  ns.ftpcrack(s);
-    //  ns.nuke(s);
-    ns.print(mytime(), "  ", s)
-  })
-
-  ns.print("\nWaiting for ", programs[3], "... ");
-  while (!ns.fileExists(programs[3])) await ns.asleep(10000);
-
-  lstsrv = srvsPort[3];
-  ns.print("\nHacking 3 ports servers ... ", lstsrv);
-  lstsrv.forEach(s => {
-    ns.run("nk.js", 1, s);
-    ns.run("hk.js", 1, "n00dles", s);
-    //  ns.brutessh(s);
-    //  ns.ftpcrack(s);
-    //  ns.relaysmtp(s);
-    //  ns.nuke(s);
-    ns.print(mytime(), "  ", s)
-  })
-
-  ns.print("\nWaiting for ", programs[4], "... ");
-  while (!ns.fileExists(programs[4])) await ns.asleep(10000);
-
-  lstsrv = srvsPort[4];
-  ns.print("\nHacking 4 ports servers ... ", lstsrv);
-  lstsrv.forEach(s => {
-    ns.run("nk.js", 1, s);
-    ns.run("hk.js", 1, "n00dles", s);
-    //  ns.brutessh(s);
-    //  ns.ftpcrack(s);
-    //  ns.relaysmtp(s);
-    //  ns.httpworm(s);
-    //  ns.nuke(s);
-    ns.print(mytime(), "  ", s)
-  })
-
-  ns.print("\nWaiting for ", programs[5], "... ");
-  while (!ns.fileExists(programs[5])) await ns.asleep(10000);
-
-  lstsrv = srvsPort[5];
-  ns.print("\nHacking 5 ports servers ... ", lstsrv);
-  lstsrv.forEach(s => {
-    ns.run("nk.js", 1, s);
-    ns.run("hk.js", 1, "n00dles", s);
-    //  ns.brutessh(s);
-    //  ns.ftpcrack(s);
-    //  ns.relaysmtp(s);
-    //  ns.httpworm(s);
-    //  ns.sqlinject(s);
-    //  ns.nuke(s);
     ns.print(mytime(), "  ", s)
   })
 }
-
-//async function nukesrv(ns, port, programs = programs) {
-//  ns.print("\nwaiting for ", programs[port]);
-//  while (!ns.fileExists(programs[port])) await ns.asleep(10000);
-
-//  let srvs = srvsPort[port];
-//  ns.print("\nHacking ", port, " ports servers ... ", srvs);
-//  srvs.forEach(s => {
-//    ns.print(mytime(), "  ", s)
-//  })
-//}
 
 function getsrvsPort(ns, srvs) {
   let sp = {};
