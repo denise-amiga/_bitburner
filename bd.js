@@ -4,7 +4,6 @@ export async function main(ns) {
   let playerLvl = ns.getHackingLevel()
   let servers = serverList(ns).filter((f) => !f.includes("zz-") && f != "home");
   let hackable = []
-  let hs = ns.getPlayer().mults.hacking_speed - 1
   for (let s of servers) {
     if (!ns.getServer(s).backdoorInstalled && ns.hasRootAccess(s) && playerLvl >= ns.getServerRequiredHackingLevel(s)) hackable.push([ns.getServerRequiredHackingLevel(s), s])
   }
@@ -13,9 +12,8 @@ export async function main(ns) {
     let [results, isFound] = findPath(ns, f[1], st, [], [], false);
     if (isFound) {
       //ns.tprint("home;connect ", results.join(';connect '), ";backdoor");
-      execterm("home;connect " + results.join(';connect ') + ";backdoor");
-      //ns.sleep(ns.getHackTime(f) + 50);
-      await ns.sleep(ns.getHackTime(f[1]) * hs * .47)
+      execterm(ns, "home;connect " + results.join(';connect ') + ";backdoor");
+      await ns.sleep(Math.ceil(ns.getHackTime(f[1]) / 4) + 1000)
     }
   }
 }
@@ -41,9 +39,12 @@ const findPath = (ns, target, serverName, serverList, ignore, isFound) => {
   return [serverList, false];
 }
 
-async function execterm(cmd) {
+async function execterm(ns, cmd) {
   const terminalInput = document.getElementById("terminal-input");
-
+  if (terminalInput === null) {
+    ns.toast("Terminal: Not focus.", "info");
+    ns.exit();
+  }
   // Get a reference to the React event handler.
   const handler = Object.keys(terminalInput)[1];
 

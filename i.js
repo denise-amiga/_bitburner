@@ -12,10 +12,11 @@ export async function main(ns) {
     if (ns.getServerRequiredHackingLevel(s) <= level && ns.hasRootAccess(s)) hackable.push([ns.getServerRequiredHackingLevel(s), s])
   }
   hackable = hackable.sort((a, b) => a[0] - b[0])
-  hackable.forEach(s => {
+  //hackable.forEach(s => {
+  for (let s of hackable) {
     ns.print(s[0].toString().padStart(4, " "), ns.hasRootAccess(s[1]) ? "#" : ">", " ", s[1]);
-    if (force) ns.run("hk.js", 1, s[1], "home", 600);
-  })
+    if (force) ns.run("hk.js", 1, s[1], "home", 1);
+  }
   ns.print(hackable.length, " servers")
 }
 
